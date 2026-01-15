@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Aplicação de notas",
   "main": "src/server.ts",
-  "scripts": {},
+  "scripts": {
+    "start": "tsx --watch src/server.ts"
+  },
   "author": "Lucas Vinicius",
   "license": "ISC",
   "devDependencies": {
