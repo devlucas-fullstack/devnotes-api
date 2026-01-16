@@ -32,6 +32,29 @@ class NoteController {
       next(error);
     }
   }
+
+  async index(req: Request, res: Response, next: NextFunction) {
+    try {
+      const notes = await prisma.note.findMany({
+        where: {
+          userId: req.user.id,
+        },
+        orderBy: { createdAt: "desc" },
+        include: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+        },
+      });
+
+      res.json(notes);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export { NoteController };
