@@ -83,6 +83,22 @@ class NoteController {
       next(error);
     }
   }
+
+  async remove(req: Request, res: Response, next: NextFunction) {
+    try {
+      const paramsSchema = z.object({
+        id: z.string(),
+      });
+
+      const { id } = paramsSchema.parse(req.params);
+
+      await prisma.note.delete({ where: { id } });
+
+      res.json();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export { NoteController };
