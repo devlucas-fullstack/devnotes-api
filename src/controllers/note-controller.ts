@@ -55,6 +55,34 @@ class NoteController {
       next(error);
     }
   }
+
+  async put(req: Request, res: Response, next: NextFunction) {
+    try {
+      const paramsSchema = z.object({
+        id: z.string(),
+      });
+
+      const bodySchema = z.object({
+        description: z.string(),
+        category: categoryEnum,
+      });
+
+      const { id } = paramsSchema.parse(req.params);
+      const { description, category } = bodySchema.parse(req.body);
+
+      const updateNote = await prisma.note.update({
+        where: { id },
+        data: {
+          description,
+          category,
+        },
+      });
+
+      res.json(updateNote);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export { NoteController };
