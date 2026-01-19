@@ -6,6 +6,7 @@ const noteController = new NoteController();
 
 noteRoutes.post("/", noteController.create);
 noteRoutes.get("/", noteController.index);
+noteRoutes.get("/:id", noteController.show);
 noteRoutes.put("/:id", noteController.put);
 noteRoutes.delete("/:id", noteController.remove);
 

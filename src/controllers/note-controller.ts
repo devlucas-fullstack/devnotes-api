@@ -56,6 +56,17 @@ class NoteController {
     }
   }
 
+  async show(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = String(req.params.id);
+
+      const note = await prisma.note.findUnique({ where: { id } });
+      res.json(note);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async put(req: Request, res: Response, next: NextFunction) {
     try {
       const paramsSchema = z.object({
